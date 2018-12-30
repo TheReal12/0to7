@@ -1,2 +1,3 @@
-# 8
-Making TheReal20's version work. Testing.
+# Game #1
+! ! ! ! ! ! ! ! ! ! ! ! ! ! !
+The game is copyright TheReal12 2018.
