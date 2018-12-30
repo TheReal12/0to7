@@ -4,7 +4,7 @@ function GameManager(size, InputManager, Actuator, ScoreManager) {
   this.scoreManager = new ScoreManager;
   this.actuator     = new Actuator;
 
-  this.startTiles   = 2;
+  this.startTiles   = 1;
 
   this.inputManager.on("move", this.move.bind(this));
   this.inputManager.on("restart", this.restart.bind(this));
@@ -59,7 +59,7 @@ GameManager.prototype.addStartTiles = function () {
 // Adds a tile in a random position
 GameManager.prototype.addRandomTile = function () {
   if (this.grid.cellsAvailable()) {
-    var value = Math.random() < 0.999 ? Math.random() < 0.999 ? Math.random() < 0.999 ? 1 : 2 : Math.random() < 0.999 ? 3 : 4 : Math.random() < 0.999 ? Math.random() < 0.999 ? 5 : 6 : Math.random() < 0.999 ? 7 : 8;
+    var value = Math.random() < 0.5 ? Math.random() < 0.5 ? Math.random() < 0.5 ? 1 : 2 : Math.random() < 0.5 ? 3 : 4 : Math.random() < 0.5 ? Math.random() < 0.5 ? 6 : 6 : Math.random() < 0.5 ? 7 : 0;
     var tile = new Tile(this.grid.randomAvailableCell(), value);
 
     this.grid.insertTile(tile);
@@ -129,8 +129,8 @@ GameManager.prototype.move = function (direction) {
         if (next && next.value === tile.value && !next.mergedFrom || next && next.value == 0 || next && tile.value == 0) {
           
 	        var merged = new Tile(positions.next, tile.value + 0);
-          if(next && next.value == 0) merged.value = tile.value / 2;
-          if(next && tile.value == 0) merged.value = next.value / 2;
+          if(next && next.value == 0) merged.value = tile.value * 0;
+          if(next && tile.value == 0) merged.value = next.value * 0;
           merged.mergedFrom = [tile, next];
 
           self.grid.insertTile(merged);
@@ -142,8 +142,8 @@ GameManager.prototype.move = function (direction) {
           // Update the score
           self.score += merged.value;
 
-          // The mighty 8 tile
-          if (merged.value === 8) self.won = true;
+          // The mighty 0 tile
+          if (merged.value === 2048) self.won = true;
         } else {
           self.moveTile(tile, positions.farthest);
         }
